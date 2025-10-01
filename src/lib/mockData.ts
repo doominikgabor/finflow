@@ -1,0 +1,162 @@
+import { Transaction, Subscription, Budget, CashFlowData, SpendingData } from '@/types';
+
+export const mockTransactions: Transaction[] = [
+  {
+    id: '1',
+    type: 'income',
+    amount: 5000,
+    category: 'Salary',
+    description: 'Monthly salary',
+    date: new Date('2025-09-01'),
+    recurring: true,
+    frequency: 'monthly',
+  },
+  {
+    id: '2',
+    type: 'income',
+    amount: 500,
+    category: 'Freelance',
+    description: 'Web design project',
+    date: new Date('2025-09-15'),
+    recurring: false,
+  },
+  {
+    id: '3',
+    type: 'income',
+    amount: 200,
+    category: 'Investment',
+    description: 'Dividend payment',
+    date: new Date('2025-09-20'),
+    recurring: false,
+  },
+  {
+    id: '4',
+    type: 'expense',
+    amount: 1200,
+    category: 'Housing',
+    description: 'Rent payment',
+    date: new Date('2025-09-05'),
+    recurring: true,
+    frequency: 'monthly',
+  },
+  {
+    id: '5',
+    type: 'expense',
+    amount: 450,
+    category: 'Food',
+    description: 'Groceries and dining',
+    date: new Date('2025-09-10'),
+    recurring: false,
+  },
+  {
+    id: '6',
+    type: 'expense',
+    amount: 180,
+    category: 'Transport',
+    description: 'Gas and car maintenance',
+    date: new Date('2025-09-12'),
+    recurring: false,
+  },
+];
+
+export const mockSubscriptions: Subscription[] = [
+  {
+    id: '1',
+    name: 'Netflix',
+    category: 'Entertainment',
+    cost: 15.99,
+    billingCycle: 'monthly',
+    nextBillingDate: new Date('2025-10-15'),
+    lastUsed: new Date('2025-09-28'),
+    status: 'active',
+  },
+  {
+    id: '2',
+    name: 'Spotify',
+    category: 'Entertainment',
+    cost: 10.99,
+    billingCycle: 'monthly',
+    nextBillingDate: new Date('2025-10-10'),
+    lastUsed: new Date('2025-09-29'),
+    status: 'active',
+  },
+  {
+    id: '3',
+    name: 'GitHub Pro',
+    category: 'Professional',
+    cost: 7,
+    billingCycle: 'monthly',
+    nextBillingDate: new Date('2025-10-05'),
+    lastUsed: new Date('2025-09-30'),
+    status: 'active',
+  },
+  {
+    id: '4',
+    name: 'ChatGPT Plus',
+    category: 'Professional',
+    cost: 20,
+    billingCycle: 'monthly',
+    nextBillingDate: new Date('2025-10-20'),
+    lastUsed: new Date('2025-09-30'),
+    status: 'active',
+  },
+  {
+    id: '5',
+    name: 'Planet Fitness',
+    category: 'Health',
+    cost: 44.99,
+    billingCycle: 'monthly',
+    nextBillingDate: new Date('2025-10-01'),
+    lastUsed: new Date('2025-09-25'),
+    status: 'active',
+  },
+];
+
+export const mockBudgets: Budget[] = [
+  {
+    id: '1',
+    category: 'Housing',
+    limit: 1400,
+    spent: 1200,
+    period: 'monthly',
+  },
+  {
+    id: '2',
+    category: 'Food',
+    limit: 600,
+    spent: 450,
+    period: 'monthly',
+  },
+  {
+    id: '3',
+    category: 'Transport',
+    limit: 300,
+    spent: 180,
+    period: 'monthly',
+  },
+  {
+    id: '4',
+    category: 'Entertainment',
+    limit: 200,
+    spent: 145,
+    period: 'monthly',
+  },
+];
+
+export const mockCashFlowData: CashFlowData[] = [
+  { month: 'Apr', income: 4800, expenses: 3200 },
+  { month: 'May', income: 5200, expenses: 3500 },
+  { month: 'Jun', income: 5000, expenses: 3800 },
+  { month: 'Jul', income: 5500, expenses: 3400 },
+  { month: 'Aug', income: 5100, expenses: 3600 },
+  { month: 'Sep', income: 5700, expenses: 3300 },
+];
+
+export const mockSpendingData: SpendingData[] = [
+  { category: 'Housing', amount: 1200, color: '#8B5CF6' },
+  { category: 'Food', amount: 450, color: '#EC4899' },
+  { category: 'Transport', amount: 180, color: '#F59E0B' },
+  { category: 'Entertainment', amount: 145, color: '#10B981' },
+  { category: 'Utilities', amount: 200, color: '#3B82F6' },
+  { category: 'Healthcare', amount: 120, color: '#EF4444' },
+];
