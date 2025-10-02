@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from './useAuth'
 import type { Transaction, Subscription, Budget } from '@/types'
+import type { DbTransaction, DbSubscription, DbBudget, DbTransactionAmount } from '@/types/database'
 
 export function useFinancialData() {
   const { user } = useAuth()
@@ -51,7 +52,7 @@ export function useFinancialData() {
 
       // Transform database data to match TypeScript types
       setTransactions(
-        transactionsData.data.map((t: any) => ({
+        transactionsData.data.map((t: DbTransaction) => ({
           id: t.id,
           type: t.type,
           amount: parseFloat(t.amount),
@@ -64,7 +65,7 @@ export function useFinancialData() {
       )
 
       setSubscriptions(
-        subscriptionsData.data.map((s: any) => ({
+        subscriptionsData.data.map((s: DbSubscription) => ({
           id: s.id,
           name: s.name,
           category: s.category,
@@ -78,7 +79,7 @@ export function useFinancialData() {
 
       // Calculate spent for each budget from transactions
       const budgetsWithSpent = await Promise.all(
-        budgetsData.data.map(async (b: any) => {
+        budgetsData.data.map(async (b: DbBudget) => {
           // Get transactions for this budget's category
           const { data: categoryTransactions } = await supabase
             .from('transactions')
@@ -87,7 +88,7 @@ export function useFinancialData() {
             .eq('type', 'expense')
 
           const spent = categoryTransactions?.reduce(
-            (sum: number, t: any) => sum + parseFloat(t.amount),
+            (sum: number, t: DbTransactionAmount) => sum + parseFloat(String(t.amount)),
             0
           ) || 0
 
@@ -166,7 +167,7 @@ export function useFinancialData() {
     if (!user) throw new Error('User not authenticated')
 
     try {
-      const dbUpdates: any = {}
+      const dbUpdates: Record<string, string | number | boolean | Date> = {}
       if (updates.type) dbUpdates.type = updates.type
       if (updates.amount !== undefined) dbUpdates.amount = updates.amount
       if (updates.category) dbUpdates.category = updates.category
@@ -254,7 +255,7 @@ export function useFinancialData() {
         .eq('type', 'expense')
 
       const spent = categoryTransactions?.reduce(
-        (sum: number, t: any) => sum + parseFloat(t.amount),
+        (sum: number, t: DbTransactionAmount) => sum + parseFloat(String(t.amount)),
         0
       ) || 0
 
@@ -279,7 +280,7 @@ export function useFinancialData() {
     if (!user) throw new Error('User not authenticated')
 
     try {
-      const dbUpdates: any = {}
+      const dbUpdates: Record<string, string | number | boolean | Date> = {}
       if (updates.limit !== undefined) dbUpdates.limit_amount = updates.limit
       if (updates.category) dbUpdates.category = updates.category
       if (updates.period) dbUpdates.period = updates.period
@@ -372,7 +373,7 @@ export function useFinancialData() {
     if (!user) throw new Error('User not authenticated')
 
     try {
-      const dbUpdates: any = {}
+      const dbUpdates: Record<string, string | number | boolean | Date> = {}
       if (updates.name) dbUpdates.name = updates.name
       if (updates.category) dbUpdates.category = updates.category
       if (updates.cost !== undefined) dbUpdates.cost = updates.cost

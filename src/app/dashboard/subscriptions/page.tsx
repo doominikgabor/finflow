@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -26,7 +25,7 @@ export default function SubscriptionsPage() {
   const totalYearlyCost = totalMonthlyCost * 12
 
   // Handler functions with toast notifications
-  const handleAddSubscription = (subscription: Omit<any, 'id'>) => {
+  const handleAddSubscription = (subscription: Omit<Subscription, 'id'>) => {
     addSubscription(subscription)
     toast.success('Subscription added!', {
       description: `${subscription.name} - ${formatCurrency(subscription.cost)}/${subscription.billingCycle}`,

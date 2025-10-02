@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              FinFlow ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our financial tracking application.
+              FinFlow (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our financial tracking application.
             </p>
             <p className="text-sm text-muted-foreground">
               By using FinFlow, you agree to the collection and use of information in accordance with this policy. We are fully GDPR compliant and respect your data rights.
@@ -140,7 +140,7 @@ export default function PrivacyPolicyPage() {
             <div>
               <h3 className="font-semibold mb-2">Where We Store Your Data</h3>
               <p className="text-sm text-muted-foreground">
-                Your data is stored securely on Supabase's infrastructure, which uses PostgreSQL databases hosted on AWS servers in the EU (Frankfurt region). All data is encrypted in transit (HTTPS/TLS) and at rest (AES-256).
+                Your data is stored securely on Supabase&apos;s infrastructure, which uses PostgreSQL databases hosted on AWS servers in the EU (Frankfurt region). All data is encrypted in transit (HTTPS/TLS) and at rest (AES-256).
               </p>
             </div>
 
@@ -274,7 +274,7 @@ export default function PrivacyPolicyPage() {
               <div className="p-3 border rounded-lg">
                 <h3 className="font-semibold text-sm mb-1">Google OAuth</h3>
                 <p className="text-sm text-muted-foreground">
-                  For secure authentication. Google's Privacy Policy:{' '}
+                  For secure authentication. Google&apos;s Privacy Policy:{' '}
                   <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                     https://policies.google.com/privacy
                   </a>
@@ -360,7 +360,7 @@ export default function PrivacyPolicyPage() {
         {/* Children's Privacy */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Children's Privacy</CardTitle>
+            <CardTitle>Children&apos;s Privacy</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm">
@@ -381,7 +381,7 @@ export default function PrivacyPolicyPage() {
 
             <ul className="space-y-1 text-sm text-muted-foreground ml-4">
               <li>• Posting the new Privacy Policy on this page</li>
-              <li>• Updating the "Last updated" date at the top</li>
+              <li>• Updating the &quot;Last updated&quot; date at the top</li>
               <li>• Sending you an email notification (for significant changes)</li>
             </ul>
 

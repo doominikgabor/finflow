@@ -87,7 +87,7 @@ export default function DashboardPage() {
             end: new Date(parsed.end),
             label: parsed.label,
           }
-        } catch (e) {
+        } catch {
           // If parsing fails, use default
         }
       }
@@ -227,7 +227,7 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back! Here's your financial overview.
+            Welcome back! Here&apos;s your financial overview.
           </p>
         </div>
         <div className="flex gap-2">

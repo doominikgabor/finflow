@@ -14,13 +14,13 @@ interface SpendingDonutProps {
 }
 
 export function SpendingDonut({ data }: SpendingDonutProps) {
-  const renderLegend = (props: any) => {
+  const renderLegend = (props: { payload?: Array<{ value: string; color: string }> }) => {
     const { payload } = props
     if (!payload || !Array.isArray(payload)) return null
 
     return (
       <ul className="flex flex-col gap-2 text-sm">
-        {payload.map((entry: any, index: number) => {
+        {payload.map((entry, index: number) => {
           // Find the matching data entry by category name (entry.value)
           const dataEntry = data.find(d => d.category === entry.value)
 

@@ -15,7 +15,6 @@ import { cn } from '@/lib/utils'
 import { exportToExcel } from '@/lib/exportToExcel'
 import { Transaction, Subscription, Budget } from '@/types'
 import { toast } from 'sonner'
-import { motion } from 'framer-motion'
 
 interface ExportDialogProps {
   trigger?: React.ReactNode
@@ -107,7 +106,7 @@ export function ExportDialog({ trigger, transactions, subscriptions, budgets, de
       })
 
       setOpen(false)
-    } catch (error) {
+    } catch {
       toast.dismiss(loadingToast)
       toast.error('Export failed', {
         description: 'There was an error exporting your data. Please try again.',

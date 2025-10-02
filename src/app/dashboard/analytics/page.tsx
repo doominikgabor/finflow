@@ -47,7 +47,7 @@ export default function AnalyticsPage() {
             end: new Date(parsed.end),
             label: parsed.label,
           }
-        } catch (e) {
+        } catch {
           // If parsing fails, use default
         }
       }
@@ -151,8 +151,6 @@ export default function AnalyticsPage() {
   const totalExpenses = filteredTransactions
     .filter((t) => t.type === 'expense')
     .reduce((sum, t) => sum + t.amount, 0)
-
-  const savingsRate = totalIncome > 0 ? ((totalIncome - totalExpenses) / totalIncome) * 100 : 0
 
   return (
     <motion.div
