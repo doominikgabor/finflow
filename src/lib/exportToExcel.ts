@@ -154,7 +154,7 @@ function generateExecutiveSummary(
     return sum + monthlyCost
   }, 0)
 
-  const ws: any = {}
+  const ws: Record<string, unknown> = {}
 
   // Title and header
   ws['A1'] = {
@@ -208,7 +208,7 @@ function generateExecutiveSummary(
 
   Object.entries(incomeByCategory)
     .sort(([, a], [, b]) => b - a)
-    .forEach(([cat, amount], index) => {
+    .forEach(([cat, amount]) => {
       const percentage = (amount / totalIncome) * 100
       const barLength = Math.round(percentage / 5)
       const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength)
@@ -304,7 +304,7 @@ function generateExecutiveSummary(
 function generateTransactionsSheet(transactions: Transaction[]) {
   const sorted = [...transactions].sort((a, b) => b.date.getTime() - a.date.getTime())
 
-  const ws: any = {}
+  const ws: Record<string, unknown> = {}
 
   // Header
   const headers = ['Date', 'Description', 'Category', 'Type', 'Amount', 'Recurring', 'Frequency']
@@ -387,7 +387,7 @@ function generateIncomeAnalysis(transactions: Transaction[]) {
     return acc
   }, {} as Record<string, { amount: number; count: number }>)
 
-  const ws: any = {}
+  const ws: Record<string, unknown> = {}
 
   // Title
   ws['A1'] = { v: '💵 INCOME ANALYSIS', s: { font: FONTS.title, fill: COLORS.income, alignment: ALIGNMENT.center } }
@@ -455,7 +455,7 @@ function generateExpenseAnalysis(transactions: Transaction[], budgets: Budget[])
     return acc
   }, {} as Record<string, { amount: number; count: number }>)
 
-  const ws: any = {}
+  const ws: Record<string, unknown> = {}
 
   ws['A1'] = { v: '💳 EXPENSE ANALYSIS', s: { font: FONTS.title, fill: COLORS.expense, alignment: ALIGNMENT.center } }
 
@@ -527,7 +527,7 @@ function generateExpenseAnalysis(transactions: Transaction[], budgets: Budget[])
 function generateSubscriptionsSheet(subscriptions: Subscription[]) {
   const active = subscriptions.filter(s => s.status === 'active')
 
-  const ws: any = {}
+  const ws: Record<string, unknown> = {}
 
   ws['A1'] = { v: '📱 ACTIVE SUBSCRIPTIONS', s: { font: FONTS.title, fill: COLORS.purple, alignment: ALIGNMENT.center } }
 
@@ -594,7 +594,7 @@ function generateSubscriptionsSheet(subscriptions: Subscription[]) {
 function generateBudgetReport(budgets: Budget[], transactions: Transaction[]) {
   const expenses = transactions.filter(t => t.type === 'expense')
 
-  const ws: any = {}
+  const ws: Record<string, unknown> = {}
 
   ws['A1'] = { v: '🎯 BUDGET REPORT', s: { font: FONTS.title, fill: { fgColor: { rgb: 'F57C00' } }, alignment: ALIGNMENT.center } }
 

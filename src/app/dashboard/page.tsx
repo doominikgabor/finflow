@@ -26,7 +26,7 @@ import {
   getMonthlyStats,
   compareMonths,
 } from '@/lib/utils'
-import { Budget } from '@/types'
+import { Budget, Transaction } from '@/types'
 import { format, startOfMonth, endOfMonth, subMonths } from 'date-fns'
 import { Trash2, Plus, FileText, RefreshCw, Pencil } from 'lucide-react'
 import { toast } from 'sonner'
@@ -169,14 +169,14 @@ export default function DashboardPage() {
   }, [filteredTransactions])
 
   // Enhanced action handlers with toast notifications
-  const handleAddTransaction = (transaction: Omit<any, 'id'>) => {
+  const handleAddTransaction = (transaction: Omit<Transaction, 'id'>) => {
     addTransaction(transaction)
     toast.success('Transaction added successfully!', {
       description: `${transaction.type === 'income' ? 'Income' : 'Expense'} of ${formatCurrency(transaction.amount)}`,
     })
   }
 
-  const handleUpdateTransaction = (id: string, transaction: Partial<any>) => {
+  const handleUpdateTransaction = (id: string, transaction: Partial<Transaction>) => {
     updateTransaction(id, transaction)
     toast.success('Transaction updated!', {
       description: 'Your transaction has been updated successfully.',
