@@ -38,4 +38,5 @@ export interface SpendingData {
   category: string;
   amount: number;
   color: string;
+  [key: string]: string | number;
 }

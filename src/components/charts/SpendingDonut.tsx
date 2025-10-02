@@ -1,14 +1,7 @@
 "use client"
 
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
-import { formatCurrency } from '@/lib/utils'
-
-interface SpendingData {
-  category: string
-  amount: number
-  fill: string
-  [key: string]: string | number
-}
+import { formatCurrency, type SpendingData } from '@/lib/utils'
 
 interface SpendingDonutProps {
   data: SpendingData[]

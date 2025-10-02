@@ -48,6 +48,7 @@ export interface SpendingData {
   category: string
   amount: number
   fill: string
+  [key: string]: string | number
 }
 
 export function calculateCashFlowData(transactions: Transaction[]): CashFlowData[] {
