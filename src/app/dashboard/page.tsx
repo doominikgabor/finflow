@@ -59,36 +59,54 @@ export default function DashboardPage() {
   } = useFinancialData()
 
   const [selectedBudget, setSelectedBudget] = useState<Budget | undefined>()
+  const [mounted, setMounted] = useState(false)
 
   // Date range state with localStorage persistence
-  const [selectedRange, setSelectedRange] = useState<DateRange>(() => {
+  const [selectedRange, setSelectedRange] = useState<DateRange>({
+    start: new Date(2020, 0, 1), // Placeholder date
+    end: new Date(2020, 0, 1),
+    label: 'Loading...',
+  })
+
+  // Initialize date range on client side only
+  useEffect(() => {
+    const now = new Date()
+    let initialRange: DateRange = {
+      start: startOfMonth(now),
+      end: endOfMonth(now),
+      label: 'This Month',
+    }
+
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('finflow-date-range')
       if (saved) {
-        const parsed = JSON.parse(saved)
-        return {
-          start: new Date(parsed.start),
-          end: new Date(parsed.end),
-          label: parsed.label,
+        try {
+          const parsed = JSON.parse(saved)
+          initialRange = {
+            start: new Date(parsed.start),
+            end: new Date(parsed.end),
+            label: parsed.label,
+          }
+        } catch (e) {
+          // If parsing fails, use default
         }
       }
     }
-    // Default to current month
-    return {
-      start: startOfMonth(new Date()),
-      end: endOfMonth(new Date()),
-      label: 'This Month',
-    }
-  })
 
-  // Persist selected range to localStorage
+    setSelectedRange(initialRange)
+    setMounted(true)
+  }, [])
+
+  // Persist selected range to localStorage (only after mount)
   useEffect(() => {
-    localStorage.setItem('finflow-date-range', JSON.stringify({
-      start: selectedRange.start.toISOString(),
-      end: selectedRange.end.toISOString(),
-      label: selectedRange.label,
-    }))
-  }, [selectedRange])
+    if (mounted) {
+      localStorage.setItem('finflow-date-range', JSON.stringify({
+        start: selectedRange.start.toISOString(),
+        end: selectedRange.end.toISOString(),
+        label: selectedRange.label,
+      }))
+    }
+  }, [selectedRange, mounted])
 
   // Filter transactions by selected date range
   const filteredTransactions = useMemo(
@@ -113,8 +131,10 @@ export default function DashboardPage() {
     [currentStats, previousStats]
   )
 
-  // Calculate chart data from filtered transactions
-  const cashFlowData = useMemo(() => calculateCashFlowData(filteredTransactions), [filteredTransactions])
+  // Calculate chart data
+  // Cash Flow shows last 6 months regardless of selected range (for trend analysis)
+  const cashFlowData = useMemo(() => calculateCashFlowData(transactions), [transactions])
+  // Spending data uses filtered transactions to match selected period
   const spendingData = useMemo(() => calculateSpendingData(filteredTransactions), [filteredTransactions])
 
   // Calculate actual spent amounts for budgets using filtered transactions
@@ -214,6 +234,8 @@ export default function DashboardPage() {
           <ExportDialog
             transactions={transactions}
             subscriptions={subscriptions}
+            budgets={budgets}
+            defaultDateRange={selectedRange}
           />
           <TransactionDialog
             trigger={

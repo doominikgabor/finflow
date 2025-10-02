@@ -19,44 +19,44 @@ interface MonthSelectorProps {
   onRangeChange: (range: DateRange) => void
 }
 
-const QUICK_FILTERS = [
+const getQuickFilters = (currentDate: Date) => [
   {
     label: 'This Month',
     getValue: () => ({
-      start: startOfMonth(new Date()),
-      end: endOfMonth(new Date()),
+      start: startOfMonth(currentDate),
+      end: endOfMonth(currentDate),
       label: 'This Month',
     }),
   },
   {
     label: 'Last Month',
     getValue: () => ({
-      start: startOfMonth(subMonths(new Date(), 1)),
-      end: endOfMonth(subMonths(new Date(), 1)),
+      start: startOfMonth(subMonths(currentDate, 1)),
+      end: endOfMonth(subMonths(currentDate, 1)),
       label: 'Last Month',
     }),
   },
   {
     label: 'Last 3 Months',
     getValue: () => ({
-      start: startOfMonth(subMonths(new Date(), 2)),
-      end: endOfMonth(new Date()),
+      start: startOfMonth(subMonths(currentDate, 2)),
+      end: endOfMonth(currentDate),
       label: 'Last 3 Months',
     }),
   },
   {
     label: 'Last 6 Months',
     getValue: () => ({
-      start: startOfMonth(subMonths(new Date(), 5)),
-      end: endOfMonth(new Date()),
+      start: startOfMonth(subMonths(currentDate, 5)),
+      end: endOfMonth(currentDate),
       label: 'Last 6 Months',
     }),
   },
   {
     label: 'This Year',
     getValue: () => ({
-      start: startOfYear(new Date()),
-      end: endOfMonth(new Date()),
+      start: startOfYear(currentDate),
+      end: endOfMonth(currentDate),
       label: 'This Year',
     }),
   },
@@ -64,7 +64,7 @@ const QUICK_FILTERS = [
     label: 'All Time',
     getValue: () => ({
       start: new Date(2020, 0, 1),
-      end: endOfMonth(new Date()),
+      end: endOfMonth(currentDate),
       label: 'All Time',
     }),
   },
@@ -72,6 +72,14 @@ const QUICK_FILTERS = [
 
 export function MonthSelector({ selectedRange, onRangeChange }: MonthSelectorProps) {
   const [open, setOpen] = useState(false)
+  const [currentDate, setCurrentDate] = useState<Date | null>(null)
+  const [mounted, setMounted] = useState(false)
+
+  // Initialize current date on client side only
+  useEffect(() => {
+    setCurrentDate(new Date())
+    setMounted(true)
+  }, [])
 
   // Keyboard navigation
   useEffect(() => {
@@ -101,11 +109,12 @@ export function MonthSelector({ selectedRange, onRangeChange }: MonthSelectorPro
   }
 
   const handleNextMonth = () => {
+    if (!currentDate) return
+
     const nextMonth = addMonths(selectedRange.start, 1)
-    const now = new Date()
 
     // Don't go beyond current month
-    if (nextMonth <= now) {
+    if (nextMonth <= currentDate) {
       onRangeChange({
         start: startOfMonth(nextMonth),
         end: endOfMonth(nextMonth),
@@ -125,10 +134,37 @@ export function MonthSelector({ selectedRange, onRangeChange }: MonthSelectorPro
     setOpen(false)
   }
 
-  const isCurrentMonth = format(selectedRange.start, 'yyyy-MM') === format(new Date(), 'yyyy-MM')
+  // Avoid hydration mismatch by only calculating on client
+  const isCurrentMonth = mounted && currentDate
+    ? format(selectedRange.start, 'yyyy-MM') === format(currentDate, 'yyyy-MM')
+    : false
+
+  // Don't render until mounted to avoid hydration mismatch
+  if (!mounted || !currentDate) {
+    return (
+      <div className="flex items-center gap-2">
+        <Button variant="outline" size="icon" disabled className="h-9 w-9">
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          className="min-w-[200px] justify-start text-left font-normal"
+          disabled
+        >
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          Loading...
+        </Button>
+        <Button variant="outline" size="icon" disabled className="h-9 w-9">
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+    )
+  }
+
+  const quickFilters = getQuickFilters(currentDate)
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2" suppressHydrationWarning>
       <Button
         variant="outline"
         size="icon"
@@ -155,7 +191,7 @@ export function MonthSelector({ selectedRange, onRangeChange }: MonthSelectorPro
           <div className="p-3 border-b">
             <p className="text-sm font-medium mb-2">Quick Filters</p>
             <div className="grid grid-cols-2 gap-2">
-              {QUICK_FILTERS.map((filter) => (
+              {quickFilters.map((filter) => (
                 <Button
                   key={filter.label}
                   variant="ghost"
