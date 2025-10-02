@@ -57,7 +57,7 @@ export function SpendingDonut({ data }: SpendingDonutProps) {
           paddingAngle={5}
           dataKey="amount"
           nameKey="category"
-          label={(entry) => entry.category}
+          label={(entry) => String(entry.category)}
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={entry.fill} />
