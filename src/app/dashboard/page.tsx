@@ -207,7 +207,9 @@ export default function DashboardPage() {
     setSelectedBudget(undefined)
   }
 
-  const handleDeleteBudget = (id: string, category: string) => {
+  const handleDeleteBudget = (id: string) => {
+    const budget = budgets.find(b => b.id === id)
+    const category = budget?.category || 'this budget'
     if (confirm(`Are you sure you want to delete the budget for ${category}?`)) {
       deleteBudget(id)
       toast.success('Budget deleted', {

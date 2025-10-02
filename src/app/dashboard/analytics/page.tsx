@@ -144,10 +144,6 @@ export default function AnalyticsPage() {
   const topCategories = spendingByCategory.slice(0, 5)
 
   // Calculate totals
-  const totalIncome = filteredTransactions
-    .filter((t) => t.type === 'income')
-    .reduce((sum, t) => sum + t.amount, 0)
-
   const totalExpenses = filteredTransactions
     .filter((t) => t.type === 'expense')
     .reduce((sum, t) => sum + t.amount, 0)
