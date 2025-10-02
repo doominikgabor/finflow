@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, CreditCard, BarChart3, RefreshCw, LogOut } from 'lucide-react'
+import { LayoutDashboard, CreditCard, BarChart3, RefreshCw, LogOut, Download } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
@@ -72,10 +72,18 @@ export function Sidebar() {
       </nav>
 
       {/* User info and logout */}
-      <div className="border-t p-4">
+      <div className="border-t p-4 space-y-2">
         <div className="text-sm text-muted-foreground mb-2 truncate">
           {user?.email}
         </div>
+        <Button
+          variant="ghost"
+          className="w-full justify-start text-sm"
+          onClick={() => window.open('/api/export-data', '_blank')}
+        >
+          <Download className="h-4 w-4 mr-2" />
+          Export My Data
+        </Button>
         <Button
           variant="ghost"
           className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
