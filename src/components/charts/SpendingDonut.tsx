@@ -8,7 +8,8 @@ interface SpendingDonutProps {
 }
 
 export function SpendingDonut({ data }: SpendingDonutProps) {
-  const renderLegend = (props: { payload?: readonly { value: string; color: string }[] }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const renderLegend = (props: any) => {
     const { payload } = props
     if (!payload || !Array.isArray(payload)) return null
 

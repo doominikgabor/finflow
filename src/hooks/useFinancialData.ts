@@ -55,7 +55,7 @@ export function useFinancialData() {
         transactionsData.data.map((t: DbTransaction) => ({
           id: t.id,
           type: t.type,
-          amount: parseFloat(t.amount),
+          amount: parseFloat(String(t.amount)),
           category: t.category,
           description: t.description,
           date: new Date(t.date),
@@ -69,7 +69,7 @@ export function useFinancialData() {
           id: s.id,
           name: s.name,
           category: s.category,
-          cost: parseFloat(s.cost),
+          cost: parseFloat(String(s.cost)),
           billingCycle: s.billing_cycle,
           nextBillingDate: new Date(s.next_billing_date),
           lastUsed: s.last_used ? new Date(s.last_used) : undefined,
@@ -95,7 +95,7 @@ export function useFinancialData() {
           return {
             id: b.id,
             category: b.category,
-            limit: parseFloat(b.limit_amount),
+            limit: parseFloat(String(b.limit_amount)),
             spent,
             period: b.period,
           }
@@ -143,7 +143,7 @@ export function useFinancialData() {
       const newTransaction: Transaction = {
         id: data.id,
         type: data.type,
-        amount: parseFloat(data.amount),
+        amount: parseFloat(String(data.amount)),
         category: data.category,
         description: data.description,
         date: new Date(data.date),
@@ -167,7 +167,7 @@ export function useFinancialData() {
     if (!user) throw new Error('User not authenticated')
 
     try {
-      const dbUpdates: Record<string, string | number | boolean | Date> = {}
+      const dbUpdates: Record<string, string | number | boolean | Date | null> = {}
       if (updates.type) dbUpdates.type = updates.type
       if (updates.amount !== undefined) dbUpdates.amount = updates.amount
       if (updates.category) dbUpdates.category = updates.category
@@ -262,7 +262,7 @@ export function useFinancialData() {
       const newBudget: Budget = {
         id: data.id,
         category: data.category,
-        limit: parseFloat(data.limit_amount),
+        limit: parseFloat(String(data.limit_amount)),
         spent,
         period: data.period,
       }
@@ -280,7 +280,7 @@ export function useFinancialData() {
     if (!user) throw new Error('User not authenticated')
 
     try {
-      const dbUpdates: Record<string, string | number | boolean | Date> = {}
+      const dbUpdates: Record<string, string | number | boolean | Date | null> = {}
       if (updates.limit !== undefined) dbUpdates.limit_amount = updates.limit
       if (updates.category) dbUpdates.category = updates.category
       if (updates.period) dbUpdates.period = updates.period
@@ -353,7 +353,7 @@ export function useFinancialData() {
         id: data.id,
         name: data.name,
         category: data.category,
-        cost: parseFloat(data.cost),
+        cost: parseFloat(String(data.cost)),
         billingCycle: data.billing_cycle,
         nextBillingDate: new Date(data.next_billing_date),
         lastUsed: data.last_used ? new Date(data.last_used) : undefined,
@@ -373,7 +373,7 @@ export function useFinancialData() {
     if (!user) throw new Error('User not authenticated')
 
     try {
-      const dbUpdates: Record<string, string | number | boolean | Date> = {}
+      const dbUpdates: Record<string, string | number | boolean | Date | null> = {}
       if (updates.name) dbUpdates.name = updates.name
       if (updates.category) dbUpdates.category = updates.category
       if (updates.cost !== undefined) dbUpdates.cost = updates.cost

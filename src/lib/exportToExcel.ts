@@ -159,7 +159,7 @@ function generateExecutiveSummary(
   // Title and header
   ws['A1'] = {
     v: '💰 FINFLOW FINANCIAL REPORT',
-    s: { font: FONTS.title, alignment: ALIGNMENT.center, fill: COLORS.header, font: { ...FONTS.title, color: { rgb: 'FFFFFF' } } }
+    s: { font: { ...FONTS.title, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.center, fill: COLORS.header }
   }
   ws['A2'] = {
     v: `Period: ${periodLabel}`,
@@ -173,7 +173,7 @@ function generateExecutiveSummary(
   let row = 5
 
   // KEY METRICS SECTION
-  ws[`A${row}`] = { v: '📊 KEY METRICS', s: { font: FONTS.heading, fill: COLORS.header, font: { ...FONTS.heading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.left } }
+  ws[`A${row}`] = { v: '📊 KEY METRICS', s: { font: { ...FONTS.heading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.left } }
   row += 2
 
   const metrics = [
@@ -200,10 +200,10 @@ function generateExecutiveSummary(
   ws[`A${row}`] = { v: '💵 INCOME BREAKDOWN', s: { font: FONTS.heading, fill: COLORS.income, alignment: ALIGNMENT.left } }
   row += 2
 
-  ws[`A${row}`] = { v: 'Category', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.left } }
-  ws[`B${row}`] = { v: 'Amount', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`C${row}`] = { v: '%', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`D${row}`] = { v: 'Visual', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.left } }
+  ws[`A${row}`] = { v: 'Category', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.left } }
+  ws[`B${row}`] = { v: 'Amount', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`C${row}`] = { v: '%', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`D${row}`] = { v: 'Visual', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.left } }
   row++
 
   Object.entries(incomeByCategory)
@@ -229,10 +229,10 @@ function generateExecutiveSummary(
   ws[`A${row}`] = { v: '💳 EXPENSE BREAKDOWN', s: { font: FONTS.heading, fill: COLORS.expense, alignment: ALIGNMENT.left } }
   row += 2
 
-  ws[`A${row}`] = { v: 'Category', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.left } }
-  ws[`B${row}`] = { v: 'Amount', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`C${row}`] = { v: '%', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`D${row}`] = { v: 'Visual', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.left } }
+  ws[`A${row}`] = { v: 'Category', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.left } }
+  ws[`B${row}`] = { v: 'Amount', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`C${row}`] = { v: '%', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`D${row}`] = { v: 'Visual', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.left } }
   row++
 
   Object.entries(expenseByCategory)
@@ -393,12 +393,12 @@ function generateIncomeAnalysis(transactions: Transaction[]) {
   ws['A1'] = { v: '💵 INCOME ANALYSIS', s: { font: FONTS.title, fill: COLORS.income, alignment: ALIGNMENT.center } }
 
   let row = 3
-  ws[`A${row}`] = { v: 'Category', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } } } }
-  ws[`B${row}`] = { v: 'Amount', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`C${row}`] = { v: '%', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`D${row}`] = { v: 'Count', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`E${row}`] = { v: 'Avg/Transaction', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`F${row}`] = { v: 'Progress Bar', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } } } }
+  ws[`A${row}`] = { v: 'Category', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header } }
+  ws[`B${row}`] = { v: 'Amount', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`C${row}`] = { v: '%', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`D${row}`] = { v: 'Count', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`E${row}`] = { v: 'Avg/Transaction', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`F${row}`] = { v: 'Progress Bar', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header } }
   row++
 
   Object.entries(byCategory)
@@ -460,13 +460,13 @@ function generateExpenseAnalysis(transactions: Transaction[], budgets: Budget[])
   ws['A1'] = { v: '💳 EXPENSE ANALYSIS', s: { font: FONTS.title, fill: COLORS.expense, alignment: ALIGNMENT.center } }
 
   let row = 3
-  ws[`A${row}`] = { v: 'Category', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } } } }
-  ws[`B${row}`] = { v: 'Amount', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`C${row}`] = { v: '%', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`D${row}`] = { v: 'Count', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`E${row}`] = { v: 'Budget', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } }, alignment: ALIGNMENT.right } }
-  ws[`F${row}`] = { v: 'Status', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } } } }
-  ws[`G${row}`] = { v: 'Progress Bar', s: { font: FONTS.subheading, fill: COLORS.header, font: { ...FONTS.subheading, color: { rgb: 'FFFFFF' } } } }
+  ws[`A${row}`] = { v: 'Category', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header } }
+  ws[`B${row}`] = { v: 'Amount', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`C${row}`] = { v: '%', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`D${row}`] = { v: 'Count', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`E${row}`] = { v: 'Budget', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header, alignment: ALIGNMENT.right } }
+  ws[`F${row}`] = { v: 'Status', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header } }
+  ws[`G${row}`] = { v: 'Progress Bar', s: { font: { ...FONTS.subheading, color: { rgb: "FFFFFF" } }, fill: COLORS.header } }
   row++
 
   Object.entries(byCategory)
