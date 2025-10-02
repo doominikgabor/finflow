@@ -220,7 +220,7 @@ export default function PrivacyPolicyPage() {
                 <Link href="/dashboard/settings" className="font-semibold text-blue-600 hover:underline">
                   Settings page
                 </Link>
-                {' '}or contact us at privacy@finflow.app
+                {' '}or contact us at utszelenallojelzotable@gmail.com
               </p>
             </div>
           </CardContent>
@@ -403,10 +403,10 @@ export default function PrivacyPolicyPage() {
 
             <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
               <p className="text-sm font-mono">
-                Email: privacy@finflow.app
+                Email: utszelenallojelzotable@gmail.com
               </p>
               <p className="text-sm font-mono mt-2">
-                Data Protection Officer: dpo@finflow.app
+                Data Protection Officer: utszelenallojelzotable@gmail.com
               </p>
             </div>
 
@@ -426,7 +426,7 @@ export default function PrivacyPolicyPage() {
             Home
           </Link>
           <span>•</span>
-          <a href="mailto:privacy@finflow.app" className="hover:underline">
+          <a href="mailto:utszelenallojelzotable@gmail.com" className="hover:underline">
             Contact
           </a>
         </div>

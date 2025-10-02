@@ -1,8 +1,36 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
+import { createServerClient } from '@/lib/supabase/server'
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request)
+  // Update session (refresh tokens, etc.)
+  const response = await updateSession(request)
+
+  // Protect dashboard routes with server-side authentication
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    const supabase = await createServerClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
+  }
+
+  // Redirect logged-in users away from login page
+  if (request.nextUrl.pathname === '/login') {
+    const supabase = await createServerClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/dashboard'
+      return NextResponse.redirect(url)
+    }
+  }
+
+  return response
 }
 
 export const config = {
