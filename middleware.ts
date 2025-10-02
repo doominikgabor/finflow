@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
-import { createServerClient } from '@/lib/supabase/server'
+import { createServerSupabaseClient } from '@/lib/supabase/server'
 
 export async function middleware(request: NextRequest) {
   // Update session (refresh tokens, etc.)
@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
 
   // Protect dashboard routes with server-side authentication
   if (request.nextUrl.pathname.startsWith('/dashboard')) {
-    const supabase = await createServerClient()
+    const supabase = await createServerSupabaseClient()
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) {
@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
 
   // Redirect logged-in users away from login page
   if (request.nextUrl.pathname === '/login') {
-    const supabase = await createServerClient()
+    const supabase = await createServerSupabaseClient()
     const { data: { user } } = await supabase.auth.getUser()
 
     if (user) {
