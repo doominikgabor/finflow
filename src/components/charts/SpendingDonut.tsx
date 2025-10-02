@@ -7,6 +7,7 @@ interface SpendingData {
   category: string
   amount: number
   fill: string
+  [key: string]: string | number
 }
 
 interface SpendingDonutProps {
