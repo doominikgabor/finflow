@@ -8,7 +8,7 @@ interface SpendingDonutProps {
 }
 
 export function SpendingDonut({ data }: SpendingDonutProps) {
-  const renderLegend = (props: { payload?: Array<{ value: string; color: string }> }) => {
+  const renderLegend = (props: { payload?: readonly { value: string; color: string }[] }) => {
     const { payload } = props
     if (!payload || !Array.isArray(payload)) return null
 
