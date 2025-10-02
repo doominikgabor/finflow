@@ -78,7 +78,7 @@ export function ExportDialog({ trigger, transactions, subscriptions, budgets, de
 
   const handleExport = async () => {
     setIsExporting(true)
-    toast.loading('Generating Excel report...')
+    const loadingToast = toast.loading('Generating Excel report...')
 
     try {
       await new Promise(resolve => setTimeout(resolve, 500)) // Small delay for UX
@@ -101,12 +101,14 @@ export function ExportDialog({ trigger, transactions, subscriptions, budgets, de
         filename,
       })
 
+      toast.dismiss(loadingToast)
       toast.success('Export successful!', {
         description: 'Your financial data has been exported to Excel.',
       })
 
       setOpen(false)
     } catch (error) {
+      toast.dismiss(loadingToast)
       toast.error('Export failed', {
         description: 'There was an error exporting your data. Please try again.',
       })

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, CreditCard, BarChart3, RefreshCw, LogOut, Download } from 'lucide-react'
+import { LayoutDashboard, CreditCard, BarChart3, RefreshCw, LogOut, Download, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
@@ -27,6 +27,11 @@ const navItems = [
     title: 'Analytics',
     href: '/dashboard/analytics',
     icon: BarChart3,
+  },
+  {
+    title: 'Settings',
+    href: '/dashboard/settings',
+    icon: Settings,
   },
 ]
 
