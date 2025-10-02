@@ -2,8 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, CreditCard, BarChart3, RefreshCw } from 'lucide-react'
+import { LayoutDashboard, CreditCard, BarChart3, RefreshCw, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/hooks/useAuth'
+import { Button } from '@/components/ui/button'
 
 const navItems = [
   {
@@ -30,6 +32,16 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname()
+  const { user, signOut } = useAuth()
+
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+      window.location.href = '/login'
+    } catch (error) {
+      console.error('Sign out error:', error)
+    }
+  }
 
   return (
     <div className="flex h-screen w-64 flex-col border-r bg-background">
@@ -58,6 +70,21 @@ export function Sidebar() {
           )
         })}
       </nav>
+
+      {/* User info and logout */}
+      <div className="border-t p-4">
+        <div className="text-sm text-muted-foreground mb-2 truncate">
+          {user?.email}
+        </div>
+        <Button
+          variant="ghost"
+          className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+          onClick={handleSignOut}
+        >
+          <LogOut className="h-4 w-4 mr-2" />
+          Sign Out
+        </Button>
+      </div>
     </div>
   )
 }
